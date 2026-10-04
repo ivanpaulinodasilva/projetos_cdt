@@ -1,8 +1,10 @@
-# 🎯 Projeto Final: Sistema de Gestão para Salão de Beleza
+# 🎯 Projeto : Sistema de Gestão para Salão de Beleza
 
-Olá! 👋 Bem-vindo ao repositório do projeto final do curso **Código_Transformação**. Este sistema foi desenvolvido para gerenciar de forma prática e automatizada a operação de um Salão de Beleza, unindo um backend robusto em Python com uma interface web leve e intuitiva.
+Olá! 👋 Bem-vindo ao repositório do projeto final do curso **PROGRAMAÇÃO BACK-END**. Este sistema foi desenvolvido para gerenciar de forma prática e automatizada a operação de um Salão de Beleza, unindo um backend robusto em Python com uma interface web leve e intuitiva.
 
-O projeto cumpre todos os requisitos do **Módulo 15**, integrando banco de dados relacional, APIs estruturadas, regras de negócio restritas e preparação completa para deploy em nuvem.
+O objetivo deste projeto é dar funcionalidades para administração de um salão de beleza usando Django e suas API.
+
+Para cumprir todos os requisitos do **Módulo 15**, integrando banco de dados relacional, APIs estruturadas, regras de negócio restritas e preparação completa para deploy em nuvem. Além do uso nos projetos final e modelos aos jovens.
 
 ---
 
@@ -82,6 +84,10 @@ Certifica-te de que tens o Python instalado e executa:
 
 ```bash
 pip install -r requirements.txt
+
+```
+```bash
+pip install django #novas funcionalidades
 
 ```
 
