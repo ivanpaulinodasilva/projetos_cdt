@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salão Vocação Hair - Gestão</title>
+    <link rel="stylesheet" href="{% static 'projetosalaovocacaohair/css/style.css' %}">
+    <style>
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .user-info {
+            font-size: 14px;
+        }
+        .btn-logout {
+            color: #dc3545;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-top">
+        <h1 style="margin: 0; font-size: 22px;">💈 Sistema de Gestão - Salão Vocação Hair</h1>
+        <div class="user-info">
+            Usuário: <strong>{{ user.username }}</strong> 
+            {% if user.is_superuser %}
+                <span style="color: #007bff;">(Administrador)</span>
+            {% else %}
+                <span style="color: #28a745;">(Recepção)</span>
+            {% endif %}
+            | <a href="{% url 'fazer_logout' %}" class="btn-logout">Sair</a>
+        </div>
+    </div>
+
+    <!-- Seção de Agendamento (Visível para Andrei/Recepção e Admin) -->
+    <div class="card">
+        <h2>🗓️ Novo Agendamento</h2>
+        <form id="formAgendamento">
+            <label for="operador">Operador Logado:</label>
+            <input type="text" id="operador" value="{{ user.username }}" readonly style="background-color: #e9ecef;">
+
+            <label for="cliente">Nome do Cliente:</label>
+            <input type="text" id="cliente" required placeholder="Digite o nome do cliente">
+
+            <label for="funcionario">Funcionário:</label>
+            <select id="funcionario" required>
+                <option value="" disabled selected>Selecione um funcionário...</option>
+                {% for f in funcionarios %}
+                    <option value="{{ f.id }}">{{ f.cargo }} - {{ f.nome }}</option>
+                {% empty %}
+                    <option value="" disabled>Nenhum funcionário cadastrado</option>
+                {% endfor %}
+            </select>
+
+            <label for="servico">Serviço:</label>
+            <select id="servico" required>
+                <option value="" disabled selected>Selecione um serviço...</option>
+                {% for s in servicos %}
+                    <option value="{{ s.id }}">{{ s.nome }} (R$ {{ s.preco }})</option>
+                {% empty %}
+                    <option value="" disabled>Nenhum serviço cadastrado</option>
+                {% endfor %}
+            </select>
+
+            <label for="data_hora">Data e Hora (Qua a Dom):</label>
+            <input type="datetime-local" id="data_hora" required>
+
+            <button type="button" onclick="realizarAgendamento()">Confirmar Agendamento</button>
+        </form>
+    </div>
+
+    <!-- EXCLUSIVO PARA O ADMINISTRADOR -->
+    {% if user.is_superuser %}
+    <div class="card" style="border-left: 5px solid #007bff;">
+        <h2>👤 Cadastrar Novo Funcionário</h2>
+        <form id="formFuncionario">
+            <label for="nome_funcionario">Nome:</label>
+            <input type="text" id="nome_funcionario" placeholder="Ex: Lucas" required>
+
+            <label for="cargo_funcionario">Cargo:</label>
+            <input type="text" id="cargo_funcionario" placeholder="Ex: Barbeiro" required>
+
+            <button type="button" onclick="cadastrarFuncionario()">Salvar Funcionário</button>
+        </form>
+    </div>
+
+    <div class="card" style="border-left: 5px solid #007bff;">
+        <h2>✂️ Cadastrar Novo Serviço</h2>
+        <form id="formServico">
+            <label for="nome_servico">Nome do Serviço:</label>
+            <input type="text" id="nome_servico" placeholder="Ex: Barba Completa" required>
+
+            <label for="preco_servico">Preço (R$):</label>
+            <input type="number" step="0.01" id="preco_servico" placeholder="Ex: 35.00" required>
+
+            <button type="button" onclick="cadastrarServico()">Salvar Serviço</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <!-- Seção de Exportação JSON -->
+    <div class="card">
+        <h2>📦 Portabilidade de Dados</h2>
+        <a href="/api/exportar-json/" download>
+            <button class="btn-export">Exportar Banco de Dados (.json)</button>
+        </a>
+    </div>
+
+    <script src="{% static 'projetosalaovocacaohair/js/main.js' %}"></script>
+</body>
+</html>

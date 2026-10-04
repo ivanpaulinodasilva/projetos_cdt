@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Salão Vocação Hair</title>
+    <link rel="stylesheet" href="{% static 'projetosalaovocacaohair/css/style.css' %}">
+    <style>
+        .login-card {
+            max-width: 380px;
+            margin: 80px auto;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            border: 1px solid #f5c6cb;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h2>💈 Salão Vocação Hair</h2>
+        <p>Acesse com seu usuário e senha para continuar.</p>
+
+        {% if error %}
+            <div class="error-message">{{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="{% url 'fazer_login' %}">
+            {% csrf_token %}
+            <label for="username">Usuário:</label>
+            <input type="text" id="username" name="username" placeholder="Digite seu usuário" required>
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar no Sistema</button>
+        </form>
+    </div>
+
+</body>
+</html>
