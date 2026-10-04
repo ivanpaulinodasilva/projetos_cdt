@@ -35,7 +35,8 @@ Para tornar o desafio mais realista, o sistema conta com validações rígidas n
 
 O banco de dados é inicializado automaticamente no primeiro boot com os seguintes dados base:
 
-* **5 Funcionários:** * Cabeleireiro-Andre
+* **5 Funcionários:**
+    * Cabeleireiro-Andre
     * Cabeleireira-Andreia
     * Cabeleireiro-Antonio
     * Podóloga-Andressa
